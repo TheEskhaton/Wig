@@ -6,10 +6,11 @@ define(["jquery","Wig"], function ($, Wig) {
                 var li = $('ul li:first');
                 li.addClass('wig');
                 Wig.set('something',123);                
-                li.attr('data-mode', 'set-style');
+                li.attr('data-mode', 'toggle-style');
                 li.attr('data-target', 'p');
-                li.attr('data-style', 'color:red;');
-                
+                li.attr('data-style-one', 'color:red;');
+                li.attr('data-style-two', 'color:blue;');
+ 
                 console.log(Wig.get('something'));
 
                 var wig = new Wig();

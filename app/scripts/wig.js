@@ -42,12 +42,23 @@ define("Wig", ["jquery"],function($){
         });
     }
     
+    var toggleStyle = function($el){
+        var $target = $($el.data('target'));
+        var styleOne = $el.data('style-one');
+        var styleTwo = $el.data('style-two');
+        setupEvent($el, function(){
+            var targetStyle = $target.attr('style');
+            targetStyle == styleOne ? $target.attr('style', styleTwo) : $target.attr('style', styleOne);
+        });
+    }
+
     /* MODES END*/
 
     var modeMap = {
         'toggle-visible' : toggleVisibility,
         'load-ajax' : loadAjax,
-        'set-style' : setStyle
+        'set-style' : setStyle,
+        'toggle-style' : toggleStyle
     }
 
     Wig.prototype = {           

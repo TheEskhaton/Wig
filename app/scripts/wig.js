@@ -1,5 +1,8 @@
 define("Wig", ["jquery"],function($){ 
 
+
+    var globalData = {};
+
     var Wig = function(selector){
         selector = selector || '.wig';
         this.$el = $(selector);
@@ -59,6 +62,14 @@ define("Wig", ["jquery"],function($){
     
     Wig.addMode = function(name, cb){
         modeMap[name] = cb;
+    }
+    
+    Wig.get = function(key){
+        return globalData[key];        
+    }
+    
+    Wig.set = function(key, value){
+        globalData[key] = value;
     }
 
     return Wig;

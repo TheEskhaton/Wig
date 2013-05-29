@@ -1,6 +1,5 @@
 define("Wig", ["jquery"],function($){ 
 
-
     var globalData = {};
 
     var Wig = function(selector){
@@ -51,14 +50,34 @@ define("Wig", ["jquery"],function($){
             targetStyle == styleOne ? $target.attr('style', styleTwo) : $target.attr('style', styleOne);
         });
     }
-
+    
+    var tabContainer = function($el){
+        var $tabChildren = $el.children().filter(function(){ return $(this).data('tab') == true });
+        console.log($tabChildren);
+        var hideTabs = function(){
+           $tabChildren.each(function(){
+                var $this = $(this);
+                var $target = $($this.data('target'));
+                $target.hide();
+            });
+        }
+        setupEvent($tabChildren, function() {
+            var $this = $(this);
+            hideTabs();
+            var $target = $($this.data('target'));
+            $target.show();
+ 
+        });
+       
+    }
     /* MODES END*/
 
     var modeMap = {
         'toggle-visible' : toggleVisibility,
         'load-ajax' : loadAjax,
         'set-style' : setStyle,
-        'toggle-style' : toggleStyle
+        'toggle-style' : toggleStyle,
+        'tab-container' : tabContainer
     }
 
     Wig.prototype = {           
@@ -71,6 +90,8 @@ define("Wig", ["jquery"],function($){
                }
     };
     
+    /* STATIC HELPERS */
+
     Wig.addMode = function(name, cb){
         modeMap[name] = cb;
     }
@@ -82,6 +103,8 @@ define("Wig", ["jquery"],function($){
     Wig.set = function(key, value){
         globalData[key] = value;
     }
+    
+    /* STATIC HELPERS END */
 
     return Wig;
 })
